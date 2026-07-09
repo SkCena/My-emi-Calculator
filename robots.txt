@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skcena.github.io/My-emi-Calculator/sitemap.xml
