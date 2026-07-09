@@ -149,3 +149,63 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 .btn-wp { background: #25D366; color: white; }
 .btn-pdf { background: var(--card-bg); color: var(--navy); border: 1px solid var(--line); }
 .btn-csv { background: var(--navy); color: white; }
+
+
+.site-footer{
+    background:#0f172a;
+    color:#d1d5db;
+    margin-top:70px;
+    padding:50px 20px 20px;
+}
+
+.footer-container{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:35px;
+}
+
+.footer-logo{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    margin-bottom:15px;
+}
+
+.footer-brand h3{
+    color:#fff;
+    margin-bottom:10px;
+}
+
+.footer-brand p{
+    color:#cbd5e1;
+    line-height:1.8;
+    font-size:15px;
+}
+
+.footer-links h4{
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.footer-links a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    margin:10px 0;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#10b981;
+    padding-left:6px;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);
+    margin-top:35px;
+    padding-top:20px;
+    text-align:center;
+    color:#94a3b8;
+}
