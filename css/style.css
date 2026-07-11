@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+/* Skeleton Loading Screen — shown until JS finishes initializing, then faded out */
+#load-skeleton { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; flex-direction: column; transition: opacity 0.35s ease, visibility 0.35s ease; }
+#load-skeleton.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.sk-header { height: 68px; background: var(--navy-dark); }
+.sk-container { max-width: 1200px; margin: 24px auto; width: 100%; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width: 768px) { .sk-container { grid-template-columns: 1fr; } }
+.sk-card { height: 320px; border-radius: 10px; background: linear-gradient(90deg, var(--card-bg) 25%, var(--line) 50%, var(--card-bg) 75%); background-size: 200% 100%; animation: sk-shimmer 1.4s ease-in-out infinite; }
+@keyframes sk-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 :root {
 /* Light Theme */
@@ -60,7 +67,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; transition: b
 .ledger-card.linkable { cursor: pointer; }
 .ledger-card.linkable:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
 .ledger-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background-image: linear-gradient(to bottom, var(--mint) 50%, transparent 50%); background-size: 4px 16px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-.ad-slot { border: 1px dashed var(--line); background: var(--donut-track); width: 100%; min-height: 90px; margin: 24px 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+.ad-slot { border: 1px dashed var(--line); background: var(--donut-track); width: 100%; min-height: 90px; margin: 24px 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; content-visibility: auto; contain-intrinsic-size: 90px; }
+
+/* Speed: browser can skip layout/paint work for off-screen page views until they're scrolled/switched into view */
+.page-view:not(.active) { content-visibility: hidden; }
 
 .sticky-col { position: sticky; top: 90px; }
 
