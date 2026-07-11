@@ -5,15 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My EMI Calculator — Calculate Monthly EMI Instantly</title>
     <meta id="meta-desc" name="description" content="Free, private, instant EMI calculator. Calculate your Home, Car, and Personal Loan EMIs, plus SIP and GST without data leaving your browser.">
-    
+
+    <!-- Speed: preconnect to font origins before CSS requests them -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600;700&display=swap"></noscript>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0B1D30">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="init-load">
+    <div id="load-skeleton" aria-hidden="true">
+        <div class="sk-header"></div>
+        <div class="sk-container">
+            <div class="sk-card"></div>
+            <div class="sk-card"></div>
+        </div>
+    </div>
+
     
     <header id="main-header">
         <div class="header-content">
             <div class="logo" onclick="window.switchTab('gen')">
-                <img src="assets/logo.png" alt="Logo" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover;">
+                <img src="assets/logo.png" alt="Logo" width="44" height="44" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover;" loading="eager">
                 <span>My EMI Calculator</span>
             </div>
             <div class="nav-tabs">
@@ -22,6 +41,7 @@
                 <button class="nav-tab" data-target="cl" data-i18n="nav_cl">Car</button>
                 <button class="nav-tab" data-target="pl" data-i18n="nav_pl">Personal</button>
                 <button class="nav-tab" data-target="comp" data-i18n="nav_comp">Compare</button>
+                <button class="nav-tab" data-target="elig" data-i18n="nav_elig">Eligibility</button>
                 <button class="nav-tab" data-target="sip" data-i18n="nav_sip">SIP</button>
                 <button class="nav-tab" data-target="gst" data-i18n="nav_gst">GST</button>
             </div>
@@ -83,33 +103,7 @@
         </div>
 
         <div id="emi-pages-container"></div>
-<section class="ledger-card mt-4">
-    <h2>Why Choose My EMI Calculator?</h2>
 
-    <div class="grid mt-4">
-
-        <div>
-            <h3>⚡ Instant Results</h3>
-            <p>Calculate EMI, SIP and GST instantly using accurate financial formulas.</p>
-        </div>
-
-        <div>
-            <h3>🔒 100% Private</h3>
-            <p>Your calculations never leave your device. No signup or data collection.</p>
-        </div>
-
-        <div>
-            <h3>📱 Works Everywhere</h3>
-            <p>Optimized for Android, iPhone, tablets and desktop browsers.</p>
-        </div>
-
-        <div>
-            <h3>🆓 Completely Free</h3>
-            <p>Unlimited calculations with no hidden charges or subscriptions.</p>
-        </div>
-
-    </div>
-</section>
         <div id="page-comp" class="page-view">
             <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="comp_title">Loan Comparison Tool</h1><p class="subtext mt-2" data-i18n="comp_subtitle">Compare two different loan configurations side-by-side.</p></div>
             <div class="grid">
@@ -180,11 +174,36 @@
             </div>
         </div>
         <div class="ad-slot anim-bottom d-5"></div>
+
+        <div id="page-elig" class="page-view">
+            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="elig_title">Loan Eligibility Calculator</h1><p class="subtext mt-2" data-i18n="elig_subtitle">Find out how much loan you can afford based on your income.</p></div>
+            <div class="ledger-card grid">
+                <div>
+                    <div id="elig-error" class="error-text" data-i18n="err_generic">Values must be greater than zero.</div>
+                    <div class="input-group anim-left d-2"><div class="input-header"><label data-i18n="lbl_net_income">Net Monthly Income</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="elig-inc-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="elig-inc-slide" min="0" max="100"></div></div>
+                    <div class="input-group anim-left d-3"><div class="input-header"><label data-i18n="lbl_existing_emi">Existing Monthly EMIs</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="elig-ex-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="elig-ex-slide" min="0" max="100"></div></div>
+                    <div class="input-group anim-left d-4"><div class="input-header"><label data-i18n="lbl_interest_rate">Interest Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="elig-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="elig-r-slide" min="1" max="25" step="0.05"></div></div>
+                    <div class="input-group anim-left d-5"><div class="input-header"><label data-i18n="lbl_tenure_yr">Tenure (Yr)</label><div class="value-box-wrapper"><input type="text" id="elig-t-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;" data-i18n="yr_short">Yr</span></div></div><div class="slider-container"><input type="range" id="elig-t-slide" min="1" max="30"></div></div>
+                    <div class="input-group anim-left d-5"><div class="input-header"><label data-i18n="lbl_foir">Income Used for EMI (FOIR)</label><div class="value-box-wrapper"><input type="text" id="elig-foir-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="elig-foir-slide" min="30" max="70" step="1"></div></div>
+                </div>
+                <div class="sticky-col">
+                    <div class="hero-display anim-top d-2"><h3 data-i18n="lbl_eligible_amount">Eligible Loan Amount</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="elig-res-amount">0</span></div></div>
+                    <div class="mt-4 anim-right d-4">
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_max_emi">Max Affordable EMI</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="elig-res-emi">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_net_income">Net Monthly Income</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="elig-res-inc">0</span></span></div>
+                    </div>
+                    <p class="subtext mt-4" style="text-align:center;"><i data-i18n="elig_disclaimer">Estimate only. Actual eligibility depends on lender policy, credit score and existing obligations.</i></p>
+                </div>
+            </div>
+        </div>
+        <div class="ad-slot anim-bottom d-5"></div>
     </div>
 
-    <script src="js/i18n.js"></script>
-    <script src="js/calculator.js"></script>
-    <script src="js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/calculator.js" defer></script>
+    <script src="js/app.js" defer></script>
     
 <section class="ledger-card mt-4">
 
@@ -296,13 +315,41 @@ EMI = P × R × (1+R)^N / ((1+R)^N − 1)
 </details>
 
 </section>
+
+<section class="ledger-card mt-4">
+    <h2 data-i18n="why_title">Why Choose My EMI Calculator?</h2>
+
+    <div class="grid mt-4">
+
+        <div>
+            <h3 data-i18n="why_1_title">⚡ Instant Results</h3>
+            <p data-i18n="why_1_desc">Calculate EMI, SIP and GST instantly using accurate financial formulas.</p>
+        </div>
+
+        <div>
+            <h3 data-i18n="why_2_title">🔒 100% Private</h3>
+            <p data-i18n="why_2_desc">Your calculations never leave your device. No signup or data collection.</p>
+        </div>
+
+        <div>
+            <h3 data-i18n="why_3_title">📱 Works Everywhere</h3>
+            <p data-i18n="why_3_desc">Optimized for Android, iPhone, tablets and desktop browsers.</p>
+        </div>
+
+        <div>
+            <h3 data-i18n="why_4_title">🆓 Completely Free</h3>
+            <p data-i18n="why_4_desc">Unlimited calculations with no hidden charges or subscriptions.</p>
+        </div>
+
+    </div>
+</section>
     
     <footer class="site-footer">
 
   <div class="footer-container">
 
     <div class="footer-brand">
-      <img src="assets/logo.png" alt="My EMI Calculator Logo" class="footer-logo">
+      <img src="assets/logo.png" alt="My EMI Calculator Logo" class="footer-logo" width="48" height="48" loading="lazy">
 
       <h3>My EMI Calculator</h3>
 
