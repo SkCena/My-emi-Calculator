@@ -209,3 +209,38 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align:center;
     color:#94a3b8;
 }
+
+details{
+margin:15px 0;
+border:1px solid var(--line);
+padding:15px;
+border-radius:8px;
+background:var(--card-bg);
+}
+
+summary{
+cursor:pointer;
+font-weight:700;
+color:var(--text-heading);
+}
+
+details p{
+margin-top:12px;
+line-height:1.8;
+}
+
+section ul,
+section ol{
+margin-left:22px;
+line-height:2;
+}
+
+section h2{
+margin-top:35px;
+margin-bottom:15px;
+}
+
+section p{
+line-height:1.9;
+margin-bottom:15px;
+}
