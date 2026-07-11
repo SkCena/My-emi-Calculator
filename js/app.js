@@ -26,7 +26,7 @@ for (const [id, cfg] of Object.entries(emiConfigs)) {
                 <div class="btn-action-group anim-bottom d-5"><button class="btn-whatsapp" onclick="window.shareWhatsApp()" data-i18n="btn_share">Share 💬</button><button class="btn-sec" onclick="window.exportCSV('${id}')" data-i18n="btn_csv">CSV ⬇️</button><button class="btn-sec" onclick="window.print()" data-i18n="btn_print">Print 🖨️</button></div>
             </div>
         </div>
-        <div class="ledger-card mt-4 anim-bottom d-5"><div class="input-header"><h2 data-i18n="amort_title">Amortization Schedule</h2><div class="btn-group"><button class="btn-toggle active" id="${id}-view-yr" onclick="window.setViewMode('${id}', false)" data-i18n="btn_yearly">Yearly</button><button class="btn-toggle" id="${id}-view-mo" onclick="window.setViewMode('${id}', true)" data-i18n="btn_monthly">Monthly</button></div></div><div class="table-wrapper"><table><thead><tr><th data-i18n="th_period">Period</th><th data-i18n="th_principal_paid">Principal Paid</th><th data-i18n="th_interest_paid">Interest Paid</th><th data-i18n="th_balance">Balance</th></tr></thead><tbody id="${id}-schedule-body" class="mono"></tbody></table></div></div>
+        <div class="ledger-card mt-4 anim-bottom d-5"><div class="input-header"><h2 data-i18n="amort_title">Amortization Schedule</h2><div class="btn-group"><button class="btn-toggle active" id="${id}-view-yr" onclick="window.setViewMode('${id}', false)" data-i18n="btn_yearly">Yearly</button><button class="btn-toggle" id="${id}-view-mo" onclick="window.setViewMode('${id}', true)" data-i18n="btn_monthly">Monthly</button></div></div><div class="table-wrapper"><table><thead><tr><th data-i18n="th_period">Period</th><th data-i18n="th_principal_paid">Principal Paid</th><th data-i18n="th_interest_paid">Interest Paid</th><th data-i18n="th_balance">Balance</th></tr></thead><tbody id="${id}-schedule-body" class="mono"></tbody></table></div><div style="text-align:right; margin-top:12px;"><button class="btn-sec" onclick="window.exportPDF('${id}')" data-i18n="btn_pdf">PDF ⬇️</button></div></div>
     </div>`;
 }
 document.getElementById('emi-pages-container').innerHTML = emiHtml;
@@ -73,7 +73,7 @@ document.getElementById('gst-mode-rem').onclick = () => { window.gstAdd=false; d
 document.getElementById('gst-r-sel').onchange = (e) => { document.getElementById('gst-custom-box').style.display = e.target.value==='custom'?'block':'none'; window.runGST(true); };
 ['gst-a-in', 'gst-c-in'].forEach(id => { const el = document.getElementById(id); el.addEventListener('input', () => el.value=el.value.replace(/[^0-9.]/g,'')); el.addEventListener('blur', () => { el.value=window.f(window.parseF(el.value)); window.saveState(id, el.value); window.runGST(true);}); });
 
-const titles = { 'gen': 'My EMI Calculator', 'hl': emiConfigs.hl.title, 'cl': emiConfigs.cl.title, 'pl': emiConfigs.pl.title, 'comp': 'Compare Loans | My EMI Calculator', 'sip': 'SIP Calculator | My EMI Calculator', 'gst': 'GST Calculator | My EMI Calculator' };
+const titles = { 'gen': 'My EMI Calculator', 'hl': emiConfigs.hl.title, 'cl': emiConfigs.cl.title, 'pl': emiConfigs.pl.title, 'comp': 'Compare Loans | My EMI Calculator', 'elig': 'Loan Eligibility Calculator | My EMI Calculator', 'sip': 'SIP Calculator | My EMI Calculator', 'gst': 'GST Calculator | My EMI Calculator' };
 
 window.switchTab = (tabId) => {
     window.state.activePage = tabId;
@@ -85,7 +85,7 @@ window.switchTab = (tabId) => {
 };
 
 const runActiveCalc = (animate) => {
-    if(window.state.activePage==='gen') window.runGen(animate); else if(['hl','cl','pl'].includes(window.state.activePage)) window.runEMI(window.state.activePage, animate); else if(window.state.activePage==='comp') window.runComp(animate); else if(window.state.activePage==='sip') window.runSIP(animate); else if(window.state.activePage==='gst') window.runGST(animate);
+    if(window.state.activePage==='gen') window.runGen(animate); else if(['hl','cl','pl'].includes(window.state.activePage)) window.runEMI(window.state.activePage, animate); else if(window.state.activePage==='comp') window.runComp(animate); else if(window.state.activePage==='elig') window.runElig(animate); else if(window.state.activePage==='sip') window.runSIP(animate); else if(window.state.activePage==='gst') window.runGST(animate);
 };
 
 document.querySelectorAll('.nav-tab').forEach(btn => btn.addEventListener('click', (e) => window.switchTab(e.target.dataset.target)));
@@ -109,6 +109,20 @@ for(const [id, cfg] of Object.entries(emiConfigs)){
 document.getElementById('ca-p-in').value = window.f(window.loadState('ca-p-in', 3000000)); document.getElementById('ca-r-in').value = window.loadState('ca-r-in', 8.5); document.getElementById('ca-t-in').value = window.loadState('ca-t-in', 20); document.getElementById('cb-p-in').value = window.f(window.loadState('cb-p-in', 3000000)); document.getElementById('cb-r-in').value = window.loadState('cb-r-in', 9.0); document.getElementById('cb-t-in').value = window.loadState('cb-t-in', 15);
 ['ca-p-in','ca-r-in','ca-t-in','cb-p-in','cb-r-in','cb-t-in'].forEach(id => { const el = document.getElementById(id); el.addEventListener('input', () => el.value=el.value.replace(/[^0-9.]/g,'')); el.addEventListener('blur', () => { el.value=window.f(window.parseF(el.value)); window.saveState(id, el.value); window.runComp(true);}); });
 
+// Eligibility Calculator bindings
+document.getElementById('elig-inc-in').value = window.f(window.loadState('elig-inc-in', 80000));
+document.getElementById('elig-inc-slide').value = 100*Math.cbrt((window.parseF(window.loadState('elig-inc-in', 80000))-1000)/(2000000-1000));
+document.getElementById('elig-ex-in').value = window.f(window.loadState('elig-ex-in', 0));
+document.getElementById('elig-ex-slide').value = 100*Math.cbrt((window.parseF(window.loadState('elig-ex-in', 0))-0)/(500000-0));
+document.getElementById('elig-r-in').value = window.loadState('elig-r-in', 8.5); document.getElementById('elig-r-slide').value = window.loadState('elig-r-in', 8.5);
+document.getElementById('elig-t-in').value = window.loadState('elig-t-in', 20); document.getElementById('elig-t-slide').value = window.loadState('elig-t-in', 20);
+document.getElementById('elig-foir-in').value = window.loadState('elig-foir-in', 50); document.getElementById('elig-foir-slide').value = window.loadState('elig-foir-in', 50);
+window.bindInputSlider('elig-inc-slide', 'elig-inc-in', 1000, 2000000, true, (anim) => window.runElig(anim));
+window.bindInputSlider('elig-ex-slide', 'elig-ex-in', 0, 500000, true, (anim) => window.runElig(anim));
+window.bindInputSlider('elig-r-slide', 'elig-r-in', 1, 25, false, (anim) => window.runElig(anim));
+window.bindInputSlider('elig-t-slide', 'elig-t-in', 1, 30, false, (anim) => window.runElig(anim));
+window.bindInputSlider('elig-foir-slide', 'elig-foir-in', 30, 70, false, (anim) => window.runElig(anim));
+
 document.getElementById('sip-m-in').value = window.f(window.loadState('sip-m-in', 5000)); document.getElementById('sip-m-slide').value = 100*Math.cbrt((window.parseF(window.loadState('sip-m-in', 5000))-100)/(200000-100)); document.getElementById('sip-r-in').value = window.loadState('sip-r-in', 12); document.getElementById('sip-r-slide').value = window.loadState('sip-r-in', 12); document.getElementById('sip-t-in').value = window.loadState('sip-t-in', 10); document.getElementById('sip-t-slide').value = window.loadState('sip-t-in', 10);
 window.bindInputSlider('sip-m-slide', 'sip-m-in', 100, 200000, true, (anim) => window.runSIP(anim)); window.bindInputSlider('sip-r-slide', 'sip-r-in', 1, 30, false, (anim) => window.runSIP(anim)); window.bindInputSlider('sip-t-slide', 'sip-t-in', 1, 40, false, (anim) => window.runSIP(anim));
 
@@ -130,5 +144,37 @@ window.state.lang = savedLang;
 document.getElementById('lang-select').value = savedLang;
 window.setLanguage(savedLang);
 
+// --- 6. LAZY-LOAD AD SLOTS (infrastructure for when ad code is added) ---
+// Only "activates" an ad slot when it scrolls into view, avoiding unnecessary
+// network/script work for ads the user never sees. Plug real ad network code
+// inside the IntersectionObserver callback where marked below.
+if ('IntersectionObserver' in window) {
+    const adObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('ad-loaded');
+                // TODO: inject real ad network script/tag here, e.g.:
+                // entry.target.innerHTML = '<ins class="adsbygoogle" ...></ins>';
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '200px' });
+    document.querySelectorAll('.ad-slot').forEach(slot => adObserver.observe(slot));
+}
+
+// --- 7. HIDE SKELETON LOADER ---
+// Runs after all calculators are initialized and first render is complete
+requestAnimationFrame(() => {
+    const skel = document.getElementById('load-skeleton');
+    if (skel) skel.classList.add('hidden');
+});
+
+// --- 8. PWA: register service worker for offline support & installability ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW registration failed:', err));
+    });
+}
+
 // Start
-runActiveCalc(true); window.runComp(true); window.runGST(true);
+runActiveCalc(true); window.runComp(true); window.runGST(true); window.runElig(true);
