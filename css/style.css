@@ -39,6 +39,16 @@ header.scrolled { box-shadow: 0 10px 30px rgba(0,0,0,0.3); padding: 12px 20px; b
 .theme-toggle { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; padding: 4px; filter: grayscale(1) brightness(2); transition: transform 0.3s ease; }
 .theme-toggle:hover { transform: rotate(15deg) scale(1.1); }
 
+/* Language Selector */
+.lang-select-wrapper { display: flex; align-items: center; gap: 6px; padding: 6px 10px 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); transition: all 0.3s ease; }
+.lang-select-wrapper:hover { border-color: var(--mint); }
+.lang-globe { font-size: 1rem; line-height: 1; filter: grayscale(0.15); }
+#lang-select { border: none; background: transparent; color: var(--text-heading); font-weight: 600; font-family: inherit; outline: none; cursor: pointer; padding: 0; appearance: none; -webkit-appearance: none; }
+#lang-select option { background: var(--card-bg); color: var(--text-heading); }
+[dir="rtl"] .lang-globe { order: 2; }
+[dir="rtl"] #lang-select { order: 1; }
+@media (max-width: 480px) { .lang-select-wrapper span.lang-globe + select#lang-select { max-width: 78px; } }
+
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 @media(max-width: 768px) { .grid { grid-template-columns: 1fr; } }
@@ -124,7 +134,7 @@ th:first-child, td:first-child { text-align: left; }
 .init-load header { animation: flyInTop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
 @media print {
-header, .nav-tabs, .ad-slot, .btn-action-group, .btn-group, .chart-hint, .slider-container, hr, .theme-toggle, select, .hero-fade { display: none !important; }
+header, .nav-tabs, .ad-slot, .btn-action-group, .btn-group, .chart-hint, .slider-container, hr, .theme-toggle, select, .hero-fade, .lang-select-wrapper { display: none !important; }
 body { background: white !important; color: black !important; }
 .ledger-card { border: none !important; box-shadow: none !important; padding: 0 !important; }
 .container { padding: 0 !important; }
