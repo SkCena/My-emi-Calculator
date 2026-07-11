@@ -17,15 +17,28 @@
                 <span>My EMI Calculator</span>
             </div>
             <div class="nav-tabs">
-                <button class="nav-tab active" data-target="gen">Generic</button>
-                <button class="nav-tab" data-target="hl">Home</button>
-                <button class="nav-tab" data-target="cl">Car</button>
-                <button class="nav-tab" data-target="pl">Personal</button>
-                <button class="nav-tab" data-target="comp">Compare</button>
-                <button class="nav-tab" data-target="sip">SIP</button>
-                <button class="nav-tab" data-target="gst">GST</button>
+                <button class="nav-tab active" data-target="gen" data-i18n="nav_gen">Generic</button>
+                <button class="nav-tab" data-target="hl" data-i18n="nav_hl">Home</button>
+                <button class="nav-tab" data-target="cl" data-i18n="nav_cl">Car</button>
+                <button class="nav-tab" data-target="pl" data-i18n="nav_pl">Personal</button>
+                <button class="nav-tab" data-target="comp" data-i18n="nav_comp">Compare</button>
+                <button class="nav-tab" data-target="sip" data-i18n="nav_sip">SIP</button>
+                <button class="nav-tab" data-target="gst" data-i18n="nav_gst">GST</button>
             </div>
             <div style="display:flex; align-items:center; gap:16px;">
+                <div class="lang-select-wrapper" title="Change Language">
+                    <span class="lang-globe">🌐</span>
+                    <select id="lang-select" onchange="window.setLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="ar">العربية</option>
+                        <option value="zh">中文</option>
+                        <option value="pt">Português</option>
+                    </select>
+                </div>
                 <select id="currency-select">
                     <option value="INR">INR (₹)</option>
                     <option value="USD">USD ($)</option>
@@ -42,100 +55,100 @@
         
         <div id="page-gen" class="page-view active assemble">
             <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1">
-                <h1>Instant EMI Calculator</h1>
-                <p class="subtext mt-2">Find your monthly payment, interest, and schedule. Symbol only.</p>
+                <h1 data-i18n="gen_title">Instant EMI Calculator</h1>
+                <p class="subtext mt-2" data-i18n="gen_subtitle">Find your monthly payment, interest, and schedule. Symbol only.</p>
             </div>
             <div class="ledger-card grid">
                 <div>
-                    <div id="gen-error" class="error-text">Values must be greater than zero.</div>
-                    <div class="input-group anim-left d-2"><div class="input-header"><label>Loan Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="gen-p-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="gen-p-slide" min="0" max="100"></div></div>
-                    <div class="input-group anim-left d-3"><div class="input-header"><label>Interest Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="gen-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="gen-r-slide" min="1" max="25" step="0.05"></div></div>
-                    <div class="input-group anim-left d-4"><div class="input-header"><label>Tenure</label><div class="btn-group"><button class="btn-toggle active" onclick="window.setTenureMode('gen', false)" id="gen-btn-yr">Years</button><button class="btn-toggle" onclick="window.setTenureMode('gen', true)" id="gen-btn-mo">Months</button></div><div class="value-box-wrapper"><input type="text" id="gen-t-in" class="value-box" style="width:70px;"><span id="gen-t-lbl" style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="gen-t-slide" min="1" max="30"></div></div>
+                    <div id="gen-error" class="error-text" data-i18n="err_generic">Values must be greater than zero.</div>
+                    <div class="input-group anim-left d-2"><div class="input-header"><label data-i18n="lbl_loan_amount">Loan Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="gen-p-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="gen-p-slide" min="0" max="100"></div></div>
+                    <div class="input-group anim-left d-3"><div class="input-header"><label data-i18n="lbl_interest_rate">Interest Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="gen-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="gen-r-slide" min="1" max="25" step="0.05"></div></div>
+                    <div class="input-group anim-left d-4"><div class="input-header"><label data-i18n="lbl_tenure">Tenure</label><div class="btn-group"><button class="btn-toggle active" onclick="window.setTenureMode('gen', false)" id="gen-btn-yr" data-i18n="btn_years">Years</button><button class="btn-toggle" onclick="window.setTenureMode('gen', true)" id="gen-btn-mo" data-i18n="btn_months">Months</button></div><div class="value-box-wrapper"><input type="text" id="gen-t-in" class="value-box" style="width:70px;"><span id="gen-t-lbl" style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="gen-t-slide" min="1" max="30"></div></div>
                 </div>
                 <div class="sticky-col">
-                    <div class="hero-display anim-top d-2"><h3>Monthly EMI</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="gen-res-emi">0</span></div></div>
-                    <div class="chart-container anim-scale d-3"><canvas id="gen-chart"></canvas><div class="chart-hint">👆 Hover or tap the circle for exact %</div></div>
+                    <div class="hero-display anim-top d-2"><h3 data-i18n="lbl_monthly_emi">Monthly EMI</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="gen-res-emi">0</span></div></div>
+                    <div class="chart-container anim-scale d-3"><canvas id="gen-chart"></canvas><div class="chart-hint" data-i18n="chart_hint">👆 Hover or tap the circle for exact %</div></div>
                     <div class="mt-4 anim-right d-4">
-                        <div class="result-row"><span class="result-label">Principal Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-p">0</span></span></div>
-                        <div class="result-row"><span class="result-label">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-i">0</span></span></div>
-                        <div class="result-row"><span class="result-label">Total Payable</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-t">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_principal_amount">Principal Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-p">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_total_interest">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-i">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_total_payable">Total Payable</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gen-res-t">0</span></span></div>
                     </div>
-                    <div class="btn-action-group anim-bottom d-5"><button class="btn-whatsapp" onclick="window.shareWhatsApp()">Share 💬</button><button class="btn-sec" onclick="window.exportCSV('gen')">CSV ⬇️</button><button class="btn-sec" onclick="window.print()">Print 🖨️</button></div>
+                    <div class="btn-action-group anim-bottom d-5"><button class="btn-whatsapp" onclick="window.shareWhatsApp()" data-i18n="btn_share">Share 💬</button><button class="btn-sec" onclick="window.exportCSV('gen')" data-i18n="btn_csv">CSV ⬇️</button><button class="btn-sec" onclick="window.print()" data-i18n="btn_print">Print 🖨️</button></div>
                 </div>
             </div>
             <div class="grid mt-4">
-                <div class="ledger-card linkable anim-bottom d-4" onclick="window.switchTab('hl')"><h3>Home Loan EMI</h3><p class="subtext mt-2">Up to 30 years, view full amortization schedule and prepayment impact.</p></div>
-                <div class="ledger-card linkable anim-bottom d-5" onclick="window.switchTab('comp')"><h3>Compare Loans</h3><p class="subtext mt-2">Compare two scenarios to see which one saves you more money.</p></div>
+                <div class="ledger-card linkable anim-bottom d-4" onclick="window.switchTab('hl')"><h3 data-i18n="card_home_title">Home Loan EMI</h3><p class="subtext mt-2" data-i18n="card_home_desc">Up to 30 years, view full amortization schedule and prepayment impact.</p></div>
+                <div class="ledger-card linkable anim-bottom d-5" onclick="window.switchTab('comp')"><h3 data-i18n="card_compare_title">Compare Loans</h3><p class="subtext mt-2" data-i18n="card_compare_desc">Compare two scenarios to see which one saves you more money.</p></div>
             </div>
         </div>
 
         <div id="emi-pages-container"></div>
 
         <div id="page-comp" class="page-view">
-            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1>Loan Comparison Tool</h1><p class="subtext mt-2">Compare two different loan configurations side-by-side.</p></div>
+            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="comp_title">Loan Comparison Tool</h1><p class="subtext mt-2" data-i18n="comp_subtitle">Compare two different loan configurations side-by-side.</p></div>
             <div class="grid">
                 <div class="ledger-card anim-left d-2">
-                    <h3 style="margin-bottom: 16px;">Loan Option A</h3>
-                    <div class="input-group"><div class="input-header"><label>Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="ca-p-in" class="value-box" style="width:100px;"></div></div></div>
-                    <div class="input-group"><div class="input-header"><label>Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="ca-r-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
-                    <div class="input-group"><div class="input-header"><label>Tenure (Yr)</label><div class="value-box-wrapper"><input type="text" id="ca-t-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div></div>
+                    <h3 style="margin-bottom: 16px;" data-i18n="comp_option_a">Loan Option A</h3>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_amount">Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="ca-p-in" class="value-box" style="width:100px;"></div></div></div>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_rate">Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="ca-r-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_tenure_yr">Tenure (Yr)</label><div class="value-box-wrapper"><input type="text" id="ca-t-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div></div>
                     <hr>
-                    <div class="result-row"><span class="result-label">Monthly EMI</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="ca-res-emi">0</span></span></div>
-                    <div class="result-row"><span class="result-label">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="ca-res-i">0</span></span></div>
+                    <div class="result-row"><span class="result-label" data-i18n="lbl_monthly_emi">Monthly EMI</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="ca-res-emi">0</span></span></div>
+                    <div class="result-row"><span class="result-label" data-i18n="lbl_total_interest">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="ca-res-i">0</span></span></div>
                 </div>
                 <div class="ledger-card anim-right d-3">
-                    <h3 style="margin-bottom: 16px;">Loan Option B</h3>
-                    <div class="input-group"><div class="input-header"><label>Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="cb-p-in" class="value-box" style="width:100px;"></div></div></div>
-                    <div class="input-group"><div class="input-header"><label>Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="cb-r-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
-                    <div class="input-group"><div class="input-header"><label>Tenure (Yr)</label><div class="value-box-wrapper"><input type="text" id="cb-t-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div></div>
+                    <h3 style="margin-bottom: 16px;" data-i18n="comp_option_b">Loan Option B</h3>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_amount">Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="cb-p-in" class="value-box" style="width:100px;"></div></div></div>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_rate">Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="cb-r-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
+                    <div class="input-group"><div class="input-header"><label data-i18n="lbl_tenure_yr">Tenure (Yr)</label><div class="value-box-wrapper"><input type="text" id="cb-t-in" class="value-box" style="width:50px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div></div>
                     <hr>
-                    <div class="result-row"><span class="result-label">Monthly EMI</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="cb-res-emi">0</span></span></div>
-                    <div class="result-row"><span class="result-label">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="cb-res-i">0</span></span></div>
+                    <div class="result-row"><span class="result-label" data-i18n="lbl_monthly_emi">Monthly EMI</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="cb-res-emi">0</span></span></div>
+                    <div class="result-row"><span class="result-label" data-i18n="lbl_total_interest">Total Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="cb-res-i">0</span></span></div>
                 </div>
             </div>
             <div class="winner-box anim-bottom d-4" id="comp-winner-box" style="display:none;">
                 <h3 id="comp-winner-title" style="color:var(--mint-dark);">Option A is better!</h3>
-                <p class="mt-2" style="color:var(--text-heading);">It saves you <strong class="mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="comp-savings">0</span></strong> in total interest.</p>
+                <p class="mt-2" style="color:var(--text-heading);"><span data-i18n="comp_saves_prefix">It saves you</span> <strong class="mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="comp-savings">0</span></strong> <span data-i18n="comp_saves_suffix">in total interest.</span></p>
             </div>
         </div>
 
         <div id="page-sip" class="page-view">
-            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1>SIP Calculator</h1><p class="subtext mt-2">Estimate mutual fund returns instantly.</p></div>
+            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="sip_title">SIP Calculator</h1><p class="subtext mt-2" data-i18n="sip_subtitle">Estimate mutual fund returns instantly.</p></div>
             <div class="ledger-card grid">
                 <div>
-                    <div id="sip-error" class="error-text">Values must be greater than zero.</div>
-                    <div class="input-group anim-left d-2"><div class="input-header"><label>Monthly Investment</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="sip-m-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="sip-m-slide" min="0" max="100"></div></div>
-                    <div class="input-group anim-left d-3"><div class="input-header"><label>Return Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="sip-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="sip-r-slide" min="1" max="30" step="0.1"></div></div>
-                    <div class="input-group anim-left d-4"><div class="input-header"><label>Time (Years)</label><div class="value-box-wrapper"><input type="text" id="sip-t-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="sip-t-slide" min="1" max="40"></div></div>
+                    <div id="sip-error" class="error-text" data-i18n="err_generic">Values must be greater than zero.</div>
+                    <div class="input-group anim-left d-2"><div class="input-header"><label data-i18n="lbl_monthly_investment">Monthly Investment</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="sip-m-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="sip-m-slide" min="0" max="100"></div></div>
+                    <div class="input-group anim-left d-3"><div class="input-header"><label data-i18n="lbl_return_rate">Return Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="sip-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="sip-r-slide" min="1" max="30" step="0.1"></div></div>
+                    <div class="input-group anim-left d-4"><div class="input-header"><label data-i18n="lbl_time_years">Time (Years)</label><div class="value-box-wrapper"><input type="text" id="sip-t-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="sip-t-slide" min="1" max="40"></div></div>
                 </div>
                 <div class="sticky-col">
-                    <div class="hero-display anim-top d-2"><h3>Total Value</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="sip-res-total">0</span></div></div>
+                    <div class="hero-display anim-top d-2"><h3 data-i18n="lbl_total_value">Total Value</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="sip-res-total">0</span></div></div>
                     <div class="chart-container anim-scale d-3"><canvas id="sip-chart"></canvas></div>
                     <div class="mt-4 anim-right d-4">
-                        <div class="result-row"><span class="result-label">Invested Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="sip-res-inv">0</span></span></div>
-                        <div class="result-row"><span class="result-label">Estimated Returns</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="sip-res-ret">0</span></span></div>
-                        <div class="result-row" style="background:var(--mint-bg); padding:10px; border-radius:6px; margin-top:10px;"><span class="result-label" style="font-weight:700; color:var(--mint-dark);">Total Maturity</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="sip-res-total-final">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_invested_amount">Invested Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="sip-res-inv">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_estimated_returns">Estimated Returns</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="sip-res-ret">0</span></span></div>
+                        <div class="result-row" style="background:var(--mint-bg); padding:10px; border-radius:6px; margin-top:10px;"><span class="result-label" style="font-weight:700; color:var(--mint-dark);" data-i18n="lbl_total_maturity">Total Maturity</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="sip-res-total-final">0</span></span></div>
                     </div>
-                    <p class="subtext mt-4" style="text-align:center;"><i>Disclaimer: Mutual fund investments are subject to market risks. Returns are illustrative and not guaranteed.</i></p>
+                    <p class="subtext mt-4" style="text-align:center;"><i data-i18n="sip_disclaimer">Disclaimer: Mutual fund investments are subject to market risks. Returns are illustrative and not guaranteed.</i></p>
                 </div>
             </div>
         </div>
 
         <div id="page-gst" class="page-view">
-            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1>GST Calculator</h1><p class="subtext mt-2">Add or remove GST instantly.</p></div>
+            <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="gst_title">GST Calculator</h1><p class="subtext mt-2" data-i18n="gst_subtitle">Add or remove GST instantly.</p></div>
             <div class="ledger-card grid">
                 <div>
-                    <div class="input-group anim-left d-2"><div class="input-header"><label>Mode</label></div><div class="btn-group" style="width:100%; display:flex;"><button class="btn-toggle active" id="gst-mode-add" style="flex:1;">Add GST</button><button class="btn-toggle" id="gst-mode-rem" style="flex:1;">Remove GST</button></div></div>
-                    <div class="input-group mt-4 anim-left d-3"><div class="input-header"><label>Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="gst-a-in" class="value-box" value="1,000"></div></div></div>
-                    <div class="input-group anim-left d-4"><div class="input-header"><label>GST Rate</label><select id="gst-r-sel" style="padding:8px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--text-heading); outline:none; transition: all 0.3s ease;"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option><option value="custom">Custom</option></select></div><div id="gst-custom-box" style="display:none; margin-top:8px;"><div class="value-box-wrapper" style="width:max-content;"><input type="text" id="gst-c-in" class="value-box" style="width:70px;" value="18"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
+                    <div class="input-group anim-left d-2"><div class="input-header"><label data-i18n="lbl_mode">Mode</label></div><div class="btn-group" style="width:100%; display:flex;"><button class="btn-toggle active" id="gst-mode-add" style="flex:1;" data-i18n="btn_add_gst">Add GST</button><button class="btn-toggle" id="gst-mode-rem" style="flex:1;" data-i18n="btn_remove_gst">Remove GST</button></div></div>
+                    <div class="input-group mt-4 anim-left d-3"><div class="input-header"><label data-i18n="lbl_amount">Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="gst-a-in" class="value-box" value="1,000"></div></div></div>
+                    <div class="input-group anim-left d-4"><div class="input-header"><label data-i18n="lbl_gst_rate">GST Rate</label><select id="gst-r-sel" style="padding:8px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--text-heading); outline:none; transition: all 0.3s ease;"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option><option value="custom" data-i18n="opt_custom">Custom</option></select></div><div id="gst-custom-box" style="display:none; margin-top:8px;"><div class="value-box-wrapper" style="width:max-content;"><input type="text" id="gst-c-in" class="value-box" style="width:70px;" value="18"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div></div>
                 </div>
                 <div class="sticky-col">
-                    <div class="hero-display anim-top d-2"><h3>Final Amount</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="gst-res-final">0</span></div></div>
+                    <div class="hero-display anim-top d-2"><h3 data-i18n="lbl_final_amount">Final Amount</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="gst-res-final">0</span></div></div>
                     <div class="mt-4 anim-right d-3">
-                        <div class="result-row"><span class="result-label">Base Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-base">0</span></span></div>
-                        <div class="result-row"><span class="result-label">CGST (Half)</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-cgst">0</span></span></div>
-                        <div class="result-row"><span class="result-label">SGST (Half)</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-sgst">0</span></span></div>
-                        <div class="result-row" style="background:var(--mint-bg); padding:12px; border-radius:6px; margin-top:12px; transition: background 0.4s ease;"><span class="result-label" style="color:var(--mint-dark); font-weight:600;">Total GST</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="gst-res-gst">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_base_amount">Base Amount</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-base">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_cgst">CGST (Half)</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-cgst">0</span></span></div>
+                        <div class="result-row"><span class="result-label" data-i18n="lbl_sgst">SGST (Half)</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="gst-res-sgst">0</span></span></div>
+                        <div class="result-row" style="background:var(--mint-bg); padding:12px; border-radius:6px; margin-top:12px; transition: background 0.4s ease;"><span class="result-label" style="color:var(--mint-dark); font-weight:600;" data-i18n="lbl_total_gst">Total GST</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="gst-res-gst">0</span></span></div>
                     </div>
                 </div>
             </div>
@@ -143,6 +156,7 @@
         <div class="ad-slot anim-bottom d-5"></div>
     </div>
 
+    <script src="js/i18n.js"></script>
     <script src="js/calculator.js"></script>
     <script src="js/app.js"></script>
     
@@ -213,46 +227,46 @@ EMI = P × R × (1+R)^N / ((1+R)^N − 1)
 <li>Select Shorter Tenure if Affordable</li>
 </ul>
 
-<h2>Frequently Asked Questions</h2>
+<h2 data-i18n="faq_title">Frequently Asked Questions</h2>
 
 <details>
-<summary>Is this EMI Calculator free?</summary>
-<p>Yes. It is completely free.</p>
+<summary data-i18n="faq_q1">Is this EMI Calculator free?</summary>
+<p data-i18n="faq_a1">Yes. It is completely free.</p>
 </details>
 
 <details>
-<summary>Is my data stored?</summary>
-<p>No. All calculations happen inside your browser.</p>
+<summary data-i18n="faq_q2">Is my data stored?</summary>
+<p data-i18n="faq_a2">No. All calculations happen inside your browser.</p>
 </details>
 
 <details>
-<summary>Can I calculate Home Loan EMI?</summary>
-<p>Yes.</p>
+<summary data-i18n="faq_q3">Can I calculate Home Loan EMI?</summary>
+<p data-i18n="faq_a3">Yes.</p>
 </details>
 
 <details>
-<summary>Can I calculate Car Loan EMI?</summary>
-<p>Yes.</p>
+<summary data-i18n="faq_q4">Can I calculate Car Loan EMI?</summary>
+<p data-i18n="faq_a4">Yes.</p>
 </details>
 
 <details>
-<summary>Can I calculate Personal Loan EMI?</summary>
-<p>Yes.</p>
+<summary data-i18n="faq_q5">Can I calculate Personal Loan EMI?</summary>
+<p data-i18n="faq_a5">Yes.</p>
 </details>
 
 <details>
-<summary>Can I compare loans?</summary>
-<p>Yes. Use the Compare Calculator.</p>
+<summary data-i18n="faq_q6">Can I compare loans?</summary>
+<p data-i18n="faq_a6">Yes. Use the Compare Calculator.</p>
 </details>
 
 <details>
-<summary>Does this calculator work on mobile?</summary>
-<p>Yes. It is fully responsive.</p>
+<summary data-i18n="faq_q7">Does this calculator work on mobile?</summary>
+<p data-i18n="faq_a7">Yes. It is fully responsive.</p>
 </details>
 
 <details>
-<summary>How accurate are the results?</summary>
-<p>The calculator uses the standard EMI formula. Actual values may vary slightly depending on lender policies.</p>
+<summary data-i18n="faq_q8">How accurate are the results?</summary>
+<p data-i18n="faq_a8">The calculator uses the standard EMI formula. Actual values may vary slightly depending on lender policies.</p>
 </details>
 
 </section>
@@ -266,7 +280,7 @@ EMI = P × R × (1+R)^N / ((1+R)^N − 1)
 
       <h3>My EMI Calculator</h3>
 
-      <p>
+      <p data-i18n="footer_desc">
         Free online EMI, Home Loan, Car Loan, Personal Loan, SIP and GST Calculator.
         Fast, accurate and completely browser-based. No signup required and your data
         never leaves your device.
@@ -275,33 +289,33 @@ EMI = P × R × (1+R)^N / ((1+R)^N − 1)
 
     <div class="footer-links">
 
-      <h4>Company</h4>
+      <h4 data-i18n="footer_company">Company</h4>
 
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms & Conditions</a>
-      <a href="disclaimer.html">Disclaimer</a>
-
-    </div>
-
-    <div class="footer-links">
-
-      <h4>Calculators</h4>
-
-      <a href="#" onclick="switchTab('gen')">EMI Calculator</a>
-      <a href="#" onclick="switchTab('hl')">Home Loan EMI</a>
-      <a href="#" onclick="switchTab('cl')">Car Loan EMI</a>
-      <a href="#" onclick="switchTab('pl')">Personal Loan EMI</a>
-      <a href="#" onclick="switchTab('sip')">SIP Calculator</a>
-      <a href="#" onclick="switchTab('gst')">GST Calculator</a>
+      <a href="index.html" data-i18n="footer_home">Home</a>
+      <a href="about.html" data-i18n="footer_about">About Us</a>
+      <a href="contact.html" data-i18n="footer_contact">Contact Us</a>
+      <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="footer_terms">Terms & Conditions</a>
+      <a href="disclaimer.html" data-i18n="footer_disclaimer">Disclaimer</a>
 
     </div>
 
     <div class="footer-links">
 
-      <h4>Resources</h4>
+      <h4 data-i18n="footer_calculators">Calculators</h4>
+
+      <a href="#" onclick="switchTab('gen')" data-i18n="nav_gen">EMI Calculator</a>
+      <a href="#" onclick="switchTab('hl')" data-i18n="card_home_title">Home Loan EMI</a>
+      <a href="#" onclick="switchTab('cl')" data-i18n="emi_title_cl">Car Loan EMI</a>
+      <a href="#" onclick="switchTab('pl')" data-i18n="emi_title_pl">Personal Loan EMI</a>
+      <a href="#" onclick="switchTab('sip')" data-i18n="sip_title">SIP Calculator</a>
+      <a href="#" onclick="switchTab('gst')" data-i18n="gst_title">GST Calculator</a>
+
+    </div>
+
+    <div class="footer-links">
+
+      <h4 data-i18n="footer_resources">Resources</h4>
 
       <a href="sitemap.xml">Sitemap</a>
       <a href="robots.txt">Robots.txt</a>
@@ -314,14 +328,14 @@ EMI = P × R × (1+R)^N / ((1+R)^N − 1)
   <div class="footer-bottom">
 
     <p>
-      © <span id="year"></span> My EMI Calculator. All Rights Reserved.
+      © <span id="year"></span> My EMI Calculator. <span data-i18n="footer_rights">All Rights Reserved.</span>
     </p>
 
-    <p>
+    <p data-i18n="footer_made">
       Made with ❤️ in India
     </p>
 
-    <p style="font-size:13px;margin-top:10px;">
+    <p style="font-size:13px;margin-top:10px;" data-i18n="footer_disclaimer_text">
       This website is intended for informational purposes only.
       EMI, SIP and GST calculations are estimates and should not be considered
       financial or legal advice. Please verify values with your bank or financial institution.
