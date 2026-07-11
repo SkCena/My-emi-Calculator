@@ -1,5 +1,5 @@
 // Global Scope Configs
-window.state = { currency: 'INR', rates: { 'INR': { sym: '₹', loc: 'en-IN' }, 'USD': { sym: '$', loc: 'en-US' }, 'EUR': { sym: '€', loc: 'de-DE' }, 'GBP': { sym: '£', loc: 'en-GB' } }, activePage: 'gen' };
+window.state = { currency: 'INR', rates: { 'INR': { sym: '₹', loc: 'en-IN' }, 'USD': { sym: '$', loc: 'en-US' }, 'EUR': { sym: '€', loc: 'de-DE' }, 'GBP': { sym: '£', loc: 'en-GB' } }, activePage: 'gen', lang: 'en' };
 const emiState = { 'gen': { mo: false, vmo: false }, 'hl': { mo: false, vmo: false }, 'cl': { mo: false, vmo: false }, 'pl': { mo: false, vmo: false } };
 
 // Core Utils
@@ -97,7 +97,7 @@ window.runGen = (animate = false) => {
 window.setTenureMode = (id, isMo) => {
     emiState[id].mo = isMo;
     document.getElementById(`${id}-btn-mo`).classList.toggle('active', isMo); document.getElementById(`${id}-btn-yr`).classList.toggle('active', !isMo);
-    document.getElementById(`${id}-t-lbl`).textContent = isMo ? 'Mo' : 'Yr';
+    document.getElementById(`${id}-t-lbl`).textContent = isMo ? window.t('mo_short') : window.t('yr_short');
     
     let v = window.parseF(document.getElementById(`${id}-t-in`).value);
     let newVal = isMo ? v*12 : v/12;
@@ -146,7 +146,7 @@ window.runComp = (animate = false) => {
     document.getElementById('ca-res-i').textContent = window.f(i1); document.getElementById('cb-res-i').textContent = window.f(i2);
     
     const wBox = document.getElementById('comp-winner-box');
-    if(i1 !== i2) { wBox.style.display = 'block'; document.getElementById('comp-winner-title').textContent = `${i1 < i2 ? 'Option A' : 'Option B'} is better!`; document.getElementById('comp-savings').textContent = window.f(Math.abs(i1 - i2)); } else { wBox.style.display = 'none'; }
+    if(i1 !== i2) { wBox.style.display = 'block'; document.getElementById('comp-winner-title').textContent = `${i1 < i2 ? window.t('comp_option_a') : window.t('comp_option_b')} ${window.t('comp_is_better')}`; document.getElementById('comp-savings').textContent = window.f(Math.abs(i1 - i2)); } else { wBox.style.display = 'none'; }
 };
 
 window.runSIP = (animate = false) => {
