@@ -234,3 +234,45 @@ window.runGST = (animate = false) => {
     else document.getElementById('gst-res-final').innerHTML = window.f(fn);
     document.getElementById('gst-res-base').textContent = window.f(b); document.getElementById('gst-res-gst').textContent = window.f(g); document.getElementById('gst-res-cgst').textContent = window.f(g/2); document.getElementById('gst-res-sgst').textContent = window.f(g/2);
 };
+
+// --- PDF EXPORT (Amortization Schedule) — uses jsPDF + AutoTable, loaded lazily via CDN ---
+window.exportPDF = (id) => {
+    if (!window.jspdf) { alert('PDF library still loading, please try again in a moment.'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const sym = window.state.rates[window.state.currency].sym;
+    const title = document.querySelector(`#page-${id} h1`).textContent;
+
+    doc.setFontSize(16); doc.text(title, 14, 18);
+    doc.setFontSize(10); doc.setTextColor(100);
+    doc.text(`${window.t('lbl_loan_amount')}: ${sym}${document.getElementById(`${id}-res-p`).textContent}   |   ${window.t('lbl_monthly_emi')}: ${sym}${document.getElementById(`${id}-res-emi`).textContent}   |   ${window.t('lbl_total_interest')}: ${sym}${document.getElementById(`${id}-res-i`).textContent}`, 14, 26);
+
+    const rows = Array.from(document.querySelectorAll(`#${id}-schedule-body tr`)).map(tr => Array.from(tr.children).map(td => td.textContent));
+    doc.autoTable({
+        head: [[window.t('th_period'), window.t('th_principal_paid'), window.t('th_interest_paid'), window.t('th_balance')]],
+        body: rows,
+        startY: 34,
+        headStyles: { fillColor: [11, 29, 48] },
+        styles: { fontSize: 9 }
+    });
+    doc.save(`${id}-amortization-schedule.pdf`);
+};
+
+// --- LOAN ELIGIBILITY CALCULATOR ---
+window.runElig = (animate = false) => {
+    const income = window.parseF(document.getElementById('elig-inc-in').value);
+    const existingEmi = window.parseF(document.getElementById('elig-ex-in').value);
+    const rate = window.parseF(document.getElementById('elig-r-in').value);
+    const years = window.parseF(document.getElementById('elig-t-in').value);
+    const foir = window.parseF(document.getElementById('elig-foir-in').value);
+    const n = years * 12, r = (rate/12)/100;
+
+    let maxEmi = Math.max(0, (income * (foir/100)) - existingEmi);
+    let eligibleAmount = r === 0 ? maxEmi * n : maxEmi * (Math.pow(1+r, n) - 1) / (r * Math.pow(1+r, n));
+    eligibleAmount = Math.max(0, eligibleAmount);
+
+    if(animate) window.animateValue(document.getElementById('elig-res-amount'), 0, eligibleAmount, 800);
+    else document.getElementById('elig-res-amount').innerHTML = window.f(eligibleAmount);
+    document.getElementById('elig-res-emi').textContent = window.f(maxEmi);
+    document.getElementById('elig-res-inc').textContent = window.f(income);
+};
