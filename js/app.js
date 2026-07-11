@@ -9,24 +9,24 @@ let emiHtml = '';
 for (const [id, cfg] of Object.entries(emiConfigs)) {
     emiHtml += `
     <div id="page-${id}" class="page-view">
-        <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1>${cfg.title}</h1><p class="subtext mt-2">Symbol only — not a live currency conversion.</p></div>
+        <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="emi_title_${id}">${cfg.title}</h1><p class="subtext mt-2" data-i18n="emi_subtitle">Symbol only — not a live currency conversion.</p></div>
         <div class="ledger-card grid">
             <div>
-                <div id="${id}-error" class="error-text">Values must be greater than zero.</div>
-                <div class="input-group anim-left d-2"><div class="input-header"><label>Loan Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="${id}-p-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="${id}-p-slide" min="0" max="100"></div></div>
-                <div class="input-group anim-left d-3"><div class="input-header"><label>Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="${id}-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="${id}-r-slide" min="1" max="25" step="0.05"></div></div>
-                <div class="input-group anim-left d-4"><div class="input-header"><label>Tenure</label><div class="btn-group"><button class="btn-toggle active" onclick="window.setTenureMode('${id}', false)" id="${id}-btn-yr">Years</button><button class="btn-toggle" onclick="window.setTenureMode('${id}', true)" id="${id}-btn-mo">Months</button></div><div class="value-box-wrapper"><input type="text" id="${id}-t-in" class="value-box" style="width:70px;"><span id="${id}-t-lbl" style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="${id}-t-slide" min="1" max="30"></div></div>
-                <hr class="anim-left d-5"><div class="input-group anim-left d-5"><div class="input-header"><label>Extra Monthly Prepayment</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="${id}-ex-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="${id}-ex-slide" min="0" max="100"></div></div>
+                <div id="${id}-error" class="error-text" data-i18n="err_generic">Values must be greater than zero.</div>
+                <div class="input-group anim-left d-2"><div class="input-header"><label data-i18n="lbl_loan_amount">Loan Amount</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="${id}-p-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="${id}-p-slide" min="0" max="100"></div></div>
+                <div class="input-group anim-left d-3"><div class="input-header"><label data-i18n="lbl_rate">Rate (p.a.)</label><div class="value-box-wrapper"><input type="text" id="${id}-r-in" class="value-box" style="width:70px;"><span style="font-weight:700; color:var(--mint-dark); margin-left:4px;">%</span></div></div><div class="slider-container"><input type="range" id="${id}-r-slide" min="1" max="25" step="0.05"></div></div>
+                <div class="input-group anim-left d-4"><div class="input-header"><label data-i18n="lbl_tenure">Tenure</label><div class="btn-group"><button class="btn-toggle active" onclick="window.setTenureMode('${id}', false)" id="${id}-btn-yr" data-i18n="btn_years">Years</button><button class="btn-toggle" onclick="window.setTenureMode('${id}', true)" id="${id}-btn-mo" data-i18n="btn_months">Months</button></div><div class="value-box-wrapper"><input type="text" id="${id}-t-in" class="value-box" style="width:70px;"><span id="${id}-t-lbl" style="font-weight:700; color:var(--mint-dark); margin-left:4px;">Yr</span></div></div><div class="slider-container"><input type="range" id="${id}-t-slide" min="1" max="30"></div></div>
+                <hr class="anim-left d-5"><div class="input-group anim-left d-5"><div class="input-header"><label data-i18n="lbl_extra_prepay">Extra Monthly Prepayment</label><div class="value-box-wrapper"><span class="currency-symbol">₹</span><input type="text" id="${id}-ex-in" class="value-box"></div></div><div class="slider-container"><input type="range" id="${id}-ex-slide" min="0" max="100"></div></div>
             </div>
             <div class="sticky-col">
-                <div class="hero-display anim-top d-2"><h3>Monthly EMI</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="${id}-res-emi">0</span></div></div>
+                <div class="hero-display anim-top d-2"><h3 data-i18n="lbl_monthly_emi">Monthly EMI</h3><div class="hero-amount mono"><span class="currency-symbol">₹</span><span id="${id}-res-emi">0</span></div></div>
                 <div class="chart-container anim-scale d-3"><canvas id="${id}-chart"></canvas></div>
-                <div class="mt-4 anim-right d-4"><div class="result-row"><span class="result-label">Principal</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-p">0</span></span></div><div class="result-row"><span class="result-label">Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-i">0</span></span></div><div class="result-row"><span class="result-label">Total Payable</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-t">0</span></span></div></div>
-                <div id="${id}-prepay-block" style="display:none; background:var(--mint-bg); padding:16px; border-radius:8px; margin-top:20px; transition: background 0.4s ease;" class="anim-right d-5"><h4 style="color:var(--text-heading); margin-bottom:12px;">Prepayment Savings</h4><div class="result-row"><span class="result-label">New Tenure</span><span class="result-value mono" id="${id}-pre-tenure"></span></div><div class="result-row"><span class="result-label">Time Saved</span><span class="result-value mono" id="${id}-pre-saved-time"></span></div><div class="result-row"><span class="result-label">Interest Saved</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="${id}-pre-saved-int"></span></span></div></div>
-                <div class="btn-action-group anim-bottom d-5"><button class="btn-whatsapp" onclick="window.shareWhatsApp()">Share 💬</button><button class="btn-sec" onclick="window.exportCSV('${id}')">CSV ⬇️</button><button class="btn-sec" onclick="window.print()">Print 🖨️</button></div>
+                <div class="mt-4 anim-right d-4"><div class="result-row"><span class="result-label" data-i18n="lbl_principal">Principal</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-p">0</span></span></div><div class="result-row"><span class="result-label" data-i18n="lbl_interest">Interest</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-i">0</span></span></div><div class="result-row"><span class="result-label" data-i18n="lbl_total_payable">Total Payable</span><span class="result-value mono"><span class="currency-symbol">₹</span><span id="${id}-res-t">0</span></span></div></div>
+                <div id="${id}-prepay-block" style="display:none; background:var(--mint-bg); padding:16px; border-radius:8px; margin-top:20px; transition: background 0.4s ease;" class="anim-right d-5"><h4 style="color:var(--text-heading); margin-bottom:12px;" data-i18n="prepay_title">Prepayment Savings</h4><div class="result-row"><span class="result-label" data-i18n="lbl_new_tenure">New Tenure</span><span class="result-value mono" id="${id}-pre-tenure"></span></div><div class="result-row"><span class="result-label" data-i18n="lbl_time_saved">Time Saved</span><span class="result-value mono" id="${id}-pre-saved-time"></span></div><div class="result-row"><span class="result-label" data-i18n="lbl_interest_saved">Interest Saved</span><span class="result-value mono" style="color:var(--mint-dark);"><span class="currency-symbol">₹</span><span id="${id}-pre-saved-int"></span></span></div></div>
+                <div class="btn-action-group anim-bottom d-5"><button class="btn-whatsapp" onclick="window.shareWhatsApp()" data-i18n="btn_share">Share 💬</button><button class="btn-sec" onclick="window.exportCSV('${id}')" data-i18n="btn_csv">CSV ⬇️</button><button class="btn-sec" onclick="window.print()" data-i18n="btn_print">Print 🖨️</button></div>
             </div>
         </div>
-        <div class="ledger-card mt-4 anim-bottom d-5"><div class="input-header"><h2>Amortization Schedule</h2><div class="btn-group"><button class="btn-toggle active" id="${id}-view-yr" onclick="window.setViewMode('${id}', false)">Yearly</button><button class="btn-toggle" id="${id}-view-mo" onclick="window.setViewMode('${id}', true)">Monthly</button></div></div><div class="table-wrapper"><table><thead><tr><th>Period</th><th>Principal Paid</th><th>Interest Paid</th><th>Balance</th></tr></thead><tbody id="${id}-schedule-body" class="mono"></tbody></table></div></div>
+        <div class="ledger-card mt-4 anim-bottom d-5"><div class="input-header"><h2 data-i18n="amort_title">Amortization Schedule</h2><div class="btn-group"><button class="btn-toggle active" id="${id}-view-yr" onclick="window.setViewMode('${id}', false)" data-i18n="btn_yearly">Yearly</button><button class="btn-toggle" id="${id}-view-mo" onclick="window.setViewMode('${id}', true)" data-i18n="btn_monthly">Monthly</button></div></div><div class="table-wrapper"><table><thead><tr><th data-i18n="th_period">Period</th><th data-i18n="th_principal_paid">Principal Paid</th><th data-i18n="th_interest_paid">Interest Paid</th><th data-i18n="th_balance">Balance</th></tr></thead><tbody id="${id}-schedule-body" class="mono"></tbody></table></div></div>
     </div>`;
 }
 document.getElementById('emi-pages-container').innerHTML = emiHtml;
@@ -113,6 +113,22 @@ document.getElementById('sip-m-in').value = window.f(window.loadState('sip-m-in'
 window.bindInputSlider('sip-m-slide', 'sip-m-in', 100, 200000, true, (anim) => window.runSIP(anim)); window.bindInputSlider('sip-r-slide', 'sip-r-in', 1, 30, false, (anim) => window.runSIP(anim)); window.bindInputSlider('sip-t-slide', 'sip-t-in', 1, 40, false, (anim) => window.runSIP(anim));
 
 document.getElementById('gst-a-in').value = window.f(window.loadState('gst-a-in', 1000)); document.getElementById('gst-c-in').value = window.loadState('gst-c-in', 18);
+
+// --- 5. LANGUAGE INIT & DYNAMIC LABEL REFRESH ---
+// Refreshes labels that are set via JS (not data-i18n) whenever the language changes
+window.refreshDynamicLabels = () => {
+    ['gen','hl','cl','pl'].forEach(id => {
+        const lblEl = document.getElementById(`${id}-t-lbl`);
+        if (lblEl) lblEl.textContent = emiState[id] && emiState[id].mo ? window.t('mo_short') : window.t('yr_short');
+    });
+    window.runComp(false);
+};
+
+// Restore saved language (defaults to English) and populate the header dropdown
+const savedLang = window.loadState('lang', 'en');
+window.state.lang = savedLang;
+document.getElementById('lang-select').value = savedLang;
+window.setLanguage(savedLang);
 
 // Start
 runActiveCalc(true); window.runComp(true); window.runGST(true);
