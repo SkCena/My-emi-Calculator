@@ -44,12 +44,31 @@
   "offers":{
     "@type":"Offer",
     "price":"0",
-    "priceCurrency":"USD"
+    "priceCurrency":"INR"
   },
   "publisher":{
     "@type":"Organization",
     "name":"My EMI Calculator"
-  }
+  },
+  "featureList": ["Home Loan EMI Calculator", "Car Loan EMI Calculator", "Personal Loan EMI Calculator", "Loan Comparison Tool", "Loan Eligibility Calculator", "SIP Calculator", "GST Calculator", "Amortization Schedule PDF Export"]
+}
+</script>
+
+    <!-- Schema.org: FAQPage — matches the FAQ section further down this page, enables FAQ rich snippets in Google search results -->
+    <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is this EMI Calculator free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is completely free." } },
+    { "@type": "Question", "name": "Is my data stored?", "acceptedAnswer": { "@type": "Answer", "text": "No. All calculations happen inside your browser." } },
+    { "@type": "Question", "name": "Can I calculate Home Loan EMI?", "acceptedAnswer": { "@type": "Answer", "text": "Yes." } },
+    { "@type": "Question", "name": "Can I calculate Car Loan EMI?", "acceptedAnswer": { "@type": "Answer", "text": "Yes." } },
+    { "@type": "Question", "name": "Can I calculate Personal Loan EMI?", "acceptedAnswer": { "@type": "Answer", "text": "Yes." } },
+    { "@type": "Question", "name": "Can I compare loans?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Compare Calculator." } },
+    { "@type": "Question", "name": "Does this calculator work on mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is fully responsive." } },
+    { "@type": "Question", "name": "How accurate are the results?", "acceptedAnswer": { "@type": "Answer", "text": "The calculator uses the standard EMI formula. Actual values may vary slightly depending on lender policies." } }
+  ]
 }
 </script>
 </head>
@@ -138,27 +157,24 @@
 
         <div id="emi-pages-container"></div>
 
-        
         <section class="ledger-card mt-4">
-    <h2>What is EMI?</h2>
 
-    <p>
-        EMI (Equated Monthly Installment) is the fixed amount you pay every month to repay a loan.
-        Each EMI consists of two parts: the principal amount and the interest charged by the lender.
-        As your loan progresses, the interest portion gradually decreases while the principal repayment increases.
-    </p>
+<h2>EMI Calculator Guide</h2>
 
-    <p>
-        Whether you're applying for a Home Loan, Car Loan, Personal Loan or Education Loan,
-        understanding your EMI helps you plan your monthly budget and avoid financial stress.
-    </p>
+<p>
+Our free EMI Calculator helps you calculate monthly loan repayments instantly for Home Loans, Car Loans, Personal Loans and other loans. Simply enter the loan amount, interest rate and tenure to view your monthly EMI, total interest and total repayment amount — all calculated privately inside your browser, with no registration required.
+</p>
 
-    <p>
-        My EMI Calculator allows you to calculate monthly EMI instantly without registration.
-        All calculations happen directly inside your browser, keeping your financial information private.
-    </p>
-</section>
-<section class="ledger-card mt-4">
+<h2>What is EMI?</h2>
+
+<p>
+EMI (Equated Monthly Installment) is the fixed amount you pay every month to repay a loan. Each EMI consists of two parts: the principal amount and the interest charged by the lender. As your loan progresses, the interest portion gradually decreases while the principal repayment increases.
+</p>
+
+<p>
+Whether you're applying for a Home Loan, Car Loan, Personal Loan or Education Loan, understanding your EMI helps you plan your monthly budget and avoid financial stress.
+</p>
+
 <h2>EMI Formula</h2>
 
 <p>
@@ -168,7 +184,7 @@ The standard EMI formula used by banks and financial institutions is:
 <pre style="white-space:pre-wrap;font-size:18px;">
 EMI = P × R × (1+R)^N
 ---------------------
-((1+R)^N - 1)
+   ((1+R)^N - 1)
 </pre>
 
 <ul>
@@ -178,72 +194,18 @@ EMI = P × R × (1+R)^N
 </ul>
 
 <p>
-Our calculator automatically performs these calculations and instantly provides your Monthly EMI, Total Interest, and Total Amount Payable.
+Our calculator automatically performs these calculations and instantly shows your Monthly EMI, Total Interest and Total Amount Payable.
 </p>
 
-</section>
-        
-<section class="ledger-card mt-4">
-  <h2>What is EMI?</h2>
-  <p>
-    EMI (Equated Monthly Installment) is the fixed amount you pay every month to repay a loan.
-    It includes both the principal amount and the interest charged by the lender.
-  </p>
+<h2>How to Calculate EMI?</h2>
 
-  <h2>How is EMI Calculated?</h2>
-  <p>
-    EMI is calculated using the loan amount, annual interest rate and loan tenure.
-    Our calculator uses the standard banking EMI formula to provide accurate results instantly.
-  </p>
-
-  <h2>Benefits of Using an EMI Calculator</h2>
-  <ul>
-    <li>Instant EMI calculation</li>
-    <li>Compare different loan options</li>
-    <li>Plan your monthly budget</li>
-    <li>Estimate total interest payable</li>
-    <li>100% free and private</li>
-  </ul>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <h3>Is this EMI calculator free?</h3>
-  <p>Yes, it is completely free.</p>
-
-  <h3>Does it store my data?</h3>
-  <p>No. All calculations happen in your browser.</p>
-
-  <h3>Can I calculate Home Loan EMI?</h3>
-  <p>Yes. You can calculate Home, Car, Personal and Generic loan EMIs.</p>
-</section>
-<section class="ledger-card mt-4">
-<h2>How is EMI Calculated?</h2>
-
-<p>
-Your EMI depends on three main factors:
-</p>
-
-<ul>
-<li><strong>Loan Amount</strong> – Higher loan amount means higher EMI.</li>
-<li><strong>Interest Rate</strong> – Even a small change in interest rate can significantly affect your monthly payment.</li>
-<li><strong>Loan Tenure</strong> – Longer tenure reduces EMI but increases total interest paid.</li>
-</ul>
-
-<p>
-Our EMI Calculator uses the standard reducing balance formula used by banks to provide accurate monthly EMI, total interest payable, and total repayment amount.
-</p>
-
-<h2>Factors Affecting EMI</h2>
-
-<ul>
-<li>Loan Amount</li>
-<li>Interest Rate</li>
-<li>Loan Tenure</li>
-<li>Down Payment</li>
-<li>Part Prepayment</li>
-<li>Fixed vs Floating Interest Rate</li>
-<li>Processing Charges</li>
-</ul>
+<ol>
+<li>Enter your Loan Amount.</li>
+<li>Enter the Interest Rate.</li>
+<li>Select your Loan Tenure.</li>
+<li>View your EMI instantly.</li>
+<li>Compare loan options or check your loan eligibility.</li>
+</ol>
 
 <h2>Types of Loans You Can Calculate</h2>
 
@@ -281,31 +243,82 @@ Our EMI Calculator uses the standard reducing balance formula used by banks to p
 
 </div>
 
+<h2 class="mt-4">Factors Affecting Your EMI</h2>
+
+<ul>
+<li><strong>Loan Amount</strong> — Higher loan amount means higher EMI.</li>
+<li><strong>Interest Rate</strong> — Even a small change in interest rate can significantly affect your monthly payment.</li>
+<li><strong>Loan Tenure</strong> — Longer tenure reduces EMI but increases total interest paid.</li>
+<li><strong>Down Payment</strong> — A higher down payment reduces your loan amount and EMI.</li>
+<li><strong>Part Prepayment</strong> — Prepaying part of your loan reduces your outstanding principal and interest.</li>
+<li><strong>Fixed vs Floating Interest Rate</strong> — Affects how your EMI may change over time.</li>
+<li><strong>Processing Charges</strong> — One-time fees charged by the lender at loan disbursal.</li>
+</ul>
+
 <h2 class="mt-4">Benefits of Using My EMI Calculator</h2>
 
 <ul>
-<li>✓ Instant calculations</li>
-<li>✓ Free forever</li>
-<li>✓ No registration required</li>
-<li>✓ 100% privacy</li>
-<li>✓ Mobile friendly</li>
-<li>✓ Home, Car, Personal, SIP & GST calculators</li>
-<li>✓ Accurate financial formulas</li>
+<li>✓ Instant, accurate calculations using standard banking formulas</li>
+<li>✓ Free forever, no registration required</li>
+<li>✓ 100% private — all calculations happen inside your browser</li>
+<li>✓ Works on mobile, tablet and desktop</li>
+<li>✓ Home, Car, Personal, SIP, GST and Eligibility calculators in one place</li>
+<li>✓ Compare loan options and export your amortization schedule as PDF</li>
 </ul>
 
 <h2 class="mt-4">Tips to Reduce Your EMI</h2>
 
 <ul>
 <li>Increase your down payment.</li>
-<li>Choose a lower interest rate.</li>
+<li>Choose a lower interest rate by comparing lenders.</li>
 <li>Maintain a good credit score.</li>
-<li>Select an appropriate tenure.</li>
+<li>Select a tenure that balances EMI amount and total interest.</li>
 <li>Make part-prepayments whenever possible.</li>
-<li>Compare lenders before taking a loan.</li>
 </ul>
 
+<h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+
+<details>
+<summary data-i18n="faq_q1">Is this EMI Calculator free?</summary>
+<p data-i18n="faq_a1">Yes. It is completely free.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q2">Is my data stored?</summary>
+<p data-i18n="faq_a2">No. All calculations happen inside your browser.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q3">Can I calculate Home Loan EMI?</summary>
+<p data-i18n="faq_a3">Yes.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q4">Can I calculate Car Loan EMI?</summary>
+<p data-i18n="faq_a4">Yes.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q5">Can I calculate Personal Loan EMI?</summary>
+<p data-i18n="faq_a5">Yes.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q6">Can I compare loans?</summary>
+<p data-i18n="faq_a6">Yes. Use the Compare Calculator.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q7">Does this calculator work on mobile?</summary>
+<p data-i18n="faq_a7">Yes. It is fully responsive.</p>
+</details>
+
+<details>
+<summary data-i18n="faq_q8">How accurate are the results?</summary>
+<p data-i18n="faq_a8">The calculator uses the standard EMI formula. Actual values may vary slightly depending on lender policies.</p>
+</details>
+
 </section>
-        
         <div id="page-comp" class="page-view">
             <div class="hero-fade" style="text-align: center; margin-bottom: 32px;" class="anim-top d-1"><h1 data-i18n="comp_title">Loan Comparison Tool</h1><p class="subtext mt-2" data-i18n="comp_subtitle">Compare two different loan configurations side-by-side.</p></div>
             <div class="grid">
@@ -406,117 +419,6 @@ Our EMI Calculator uses the standard reducing balance formula used by banks to p
     <script src="js/i18n.js" defer></script>
     <script src="js/calculator.js" defer></script>
     <script src="js/app.js" defer></script>
-    
-<section class="ledger-card mt-4">
-
-<h2>EMI Calculator Guide</h2>
-
-<p>
-Our free EMI Calculator helps you calculate monthly loan repayments instantly for Home Loans, Car Loans, Personal Loans and other loans. Simply enter the loan amount, interest rate and tenure to view your monthly EMI, total interest and total repayment amount.
-</p>
-
-<h2>What is EMI?</h2>
-
-<p>
-EMI (Equated Monthly Installment) is the fixed amount a borrower pays every month until the loan is fully repaid. Every EMI contains two components: Principal and Interest.
-</p>
-
-<h2>EMI Formula</h2>
-
-<p class="mono">
-EMI = P × R × (1+R)^N / ((1+R)^N − 1)
-</p>
-
-<ul>
-<li>P = Loan Amount</li>
-<li>R = Monthly Interest Rate</li>
-<li>N = Loan Tenure in Months</li>
-</ul>
-
-<h2>How to Calculate EMI?</h2>
-
-<ol>
-<li>Enter Loan Amount.</li>
-<li>Enter Interest Rate.</li>
-<li>Select Loan Tenure.</li>
-<li>View EMI instantly.</li>
-<li>Compare loan options.</li>
-</ol>
-
-<h2>Benefits of EMI Calculator</h2>
-
-<ul>
-<li>100% Free</li>
-<li>Instant Calculation</li>
-<li>Private (No data uploaded)</li>
-<li>Works on Mobile & Desktop</li>
-<li>Compare different loan options</li>
-<li>Estimate Total Interest</li>
-</ul>
-
-<h2>Factors Affecting EMI</h2>
-
-<ul>
-<li>Loan Amount</li>
-<li>Interest Rate</li>
-<li>Loan Tenure</li>
-<li>Prepayments</li>
-<li>Processing Charges</li>
-</ul>
-
-<h2>Tips to Reduce EMI</h2>
-
-<ul>
-<li>Increase Down Payment</li>
-<li>Choose Lower Interest Rate</li>
-<li>Improve Credit Score</li>
-<li>Make Part Prepayments</li>
-<li>Select Shorter Tenure if Affordable</li>
-</ul>
-
-<h2 data-i18n="faq_title">Frequently Asked Questions</h2>
-
-<details>
-<summary data-i18n="faq_q1">Is this EMI Calculator free?</summary>
-<p data-i18n="faq_a1">Yes. It is completely free.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q2">Is my data stored?</summary>
-<p data-i18n="faq_a2">No. All calculations happen inside your browser.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q3">Can I calculate Home Loan EMI?</summary>
-<p data-i18n="faq_a3">Yes.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q4">Can I calculate Car Loan EMI?</summary>
-<p data-i18n="faq_a4">Yes.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q5">Can I calculate Personal Loan EMI?</summary>
-<p data-i18n="faq_a5">Yes.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q6">Can I compare loans?</summary>
-<p data-i18n="faq_a6">Yes. Use the Compare Calculator.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q7">Does this calculator work on mobile?</summary>
-<p data-i18n="faq_a7">Yes. It is fully responsive.</p>
-</details>
-
-<details>
-<summary data-i18n="faq_q8">How accurate are the results?</summary>
-<p data-i18n="faq_a8">The calculator uses the standard EMI formula. Actual values may vary slightly depending on lender policies.</p>
-</details>
-
-</section>
 
 <section class="ledger-card mt-4">
     <h2 data-i18n="why_title">Why Choose My EMI Calculator?</h2>
